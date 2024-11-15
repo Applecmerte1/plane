@@ -1,0 +1,57 @@
+from PyQt5.QtCore import Qt, QTime ,QTimer
+from PyQt5.QtWidgets import * 
+from boing import *
+from airbus220 import *
+ 
+class SecondWin(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.look()
+        self.initUI()
+        self.connect()
+    def look(self):
+        self.setWindowTitle('2nd screen')
+        self.resize(600,400)
+    def initUI(self):
+        #делаем линии и задаем главную
+        self.left = QVBoxLayout()
+        self.setLayout(self.left)
+ 
+        #делаем всю каку чтобы было и потом с этим заниматься а не сразу делаем для красотыи понятности
+        self.name1 = QLabel('Введите имя самолета')
+        self.tank1 = QLabel('Введите объем двигателя(вводить только цифры)')
+        self.wings1 = QLabel('Введите размах крыльев(вводить только цифры)')
+        self.button = QPushButton('Button', self)
+        self.button.clicked.connect(self.on_button_click)
+        self.name2 = QLineEdit()
+        self.tank2 = QLineEdit()
+        self.wings2 = QLineEdit()
+        #теперь все просто надо насадить главное не обосраться
+        #направляющие накинули теперь текст и куда надо вводить
+        self.left.addWidget(self.name1)
+        self.left.addWidget(self.name2)
+        self.left.addWidget(self.tank1)
+        self.left.addWidget(self.tank2)
+        self.left.addWidget(self.wings1)
+        self.left.addWidget(self.wings2)
+        self.left.addWidget(self.button) 
+    def on_button_click(self):
+        global name1, tank1, wings1
+        name1 = self.name2.text()  # получаем имя самолета из текстового поля
+        tank1 = int(self.tank2.text())  # получаем объем двигателя из текстового поля и преобразуем в целое число
+        wings1 = int(self.wings2.text())  # получаем размах крыльев из текстового поля и преобразуем в целое число
+        # проверяем условие и отображаем следующее окно при его выполнении
+        if name1 == 'boing737' and tank1 == 24100 and wings1 == 64:
+            self.close()  # закрываем текущее окно
+            self.third_screen = MainWindow()  # создаем экземпляр следующего окна
+            self.third_screen.show()  # отображаем следующее окно
+        elif name1 == 'airbus a220' and tank1 == 21000 and wings1 == 35:
+            self.close()
+            self.fourth_screen = Airbuswin()
+            self.fourth_screen.show()
+        elif name1 != 'boing737' and name1 != 'airbus a220' or tank1 != 24100 and tank1 != 21000 or wings1 != 64 and wings1 != 35:
+            msg_box = QMessageBox()
+            msg_box.setText('нет такого самолета')
+            msg_box.exec_()
+    def connect(self):
+        pass
