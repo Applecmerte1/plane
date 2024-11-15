@@ -1,0 +1,50 @@
+from PyQt5.QtCore import Qt, QTime, QTimer
+from PyQt5.QtWidgets import *
+from Screen2 import *
+ 
+app = QApplication([])
+ 
+class MainWin(QWidget):
+    #класс для окна есть репозитория на гитхабе там более нормально 
+    def __init__(self):
+        super().__init__()
+        self.look()
+        self.initUI()
+        self.connect()
+ 
+    def look(self):
+        #создали окошко
+        self.setWindowTitle('1st screen')
+        self.resize(600,400)
+ 
+    def initUI(self):
+        #навалили кучу для проверки
+        self.main_layout = QVBoxLayout()
+        self.setLayout(self.main_layout)
+        self.button = QPushButton('Start')
+        self.main_layout.addWidget(self.button)
+ 
+    def connect(self):
+        #соединяем два окна
+        self.button.clicked.connect(self.next_screen)
+ 
+    def next_screen(self):
+        self.close()  # close the current window
+        self.Second_screen = SecondWin()
+        self.Second_screen.show()
+ 
+ 
+class Planestats:
+    #делаем класс с параметрами самолетов
+    def __init__(self,name,tank,wings):
+        self.name = name
+        self.tank = tank
+        self.wings = wings
+ 
+#тут кароче 2 самолета и мы говорим какие у них параметры которые задали с класса сверху
+boing1 = Planestats('boing737',24100,64)
+airbus = Planestats('airbus a220',21000,35)
+#это просто надо и не трогать как 5 строчку без этого работать не будет
+main_win = MainWin()
+main_win.show()
+app.exec_()
