@@ -1,0 +1,32 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QLabel, QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton
+ 
+class Airbuswin(QMainWindow):
+    def __init__(self):
+        super().__init__()
+ 
+        self.setupUi()
+        self.loadImage()
+ 
+    def setupUi(self):
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+ 
+        self.layout = QVBoxLayout()
+        self.central_widget.setLayout(self.layout)
+ 
+        self.label = QLabel()
+        self.layout.addWidget(self.label, alignment=Qt.AlignCenter)
+ 
+        self.setWindowTitle('брбрбр вувуву')
+ 
+    def loadImage(self):
+        pixmap = QPixmap('C:\\Users\\Клим\\Desktop\\Новая папка\\28592401577_7e9beacc7a_b.jpg')
+        self.label.setPixmap(pixmap)
+ 
+if __name__ == '__main__':
+    app = QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec_()
